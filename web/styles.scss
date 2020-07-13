@@ -1,0 +1,13 @@
+@import "../lib/styles/_variables.scss";
+
+// Normalise
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-primary;
+    color: $color-text-dark;
+}
