@@ -1,19 +1,21 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
-import 'src/hero.dart';
-import 'src/mock_heroes.dart';
+import 'src/services/hero_service.dart';
+import 'src/components/hero_list_component.dart';
 
-import 'src/hero_component.dart';
+import 'src/router/routes.dart';
 
 @Component(
     selector: 'my-app',
     templateUrl: 'app_component.html',
-    directives: [coreDirectives, HeroComponent],
-    styleUrls: ['app_component.css'])
+    directives: [coreDirectives, routerDirectives, HeroListComponent],
+    styleUrls: ['./styles/global.css', 'app_component.css'],
+    providers: [ClassProvider(HeroService)],
+    exports: [RoutePaths, Routes])
 class AppComponent {
   final title = 'Tour of Heroes';
-  Hero selected;
-  List<Hero> heroes = mockHeroes;
 
-  void onSelect(Hero hero) => selected = hero;
+  //services
+
 }

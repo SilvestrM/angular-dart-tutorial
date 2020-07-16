@@ -1,21 +1,13 @@
 <div class="container">
-  <h1 style="margin: 1em auto;">{{title}}</h1>
+  <h1 style="">{{title}}</h1>
+  <nav>
+    <a [routerLink]="RoutePaths.dashboard.toUrl()" [routerLinkActive]="'active'"
+      >Dashboard</a
+    >
+    <a [routerLink]="RoutePaths.heroes.toUrl()" [routerLinkActive]="'active'"
+      >Heroes</a
+    >
+  </nav>
   <hr />
-  <h2>Heroes</h2>
-  <div class="grid">
-    <ul class="heroes">
-      <li
-        [class.selected]="hero === selected"
-        *ngFor="let hero of heroes"
-        (click)="onSelect(hero)"
-      >
-        <span class="badge">{{hero.id}}</span>
-        {{hero.name}}
-      </li>
-    </ul>
-
-    <div *ngIf="selected != null">
-      <my-hero [hero]="selected"></my-hero>
-    </div>
-  </div>
+  <router-outlet [routes]="Routes.all"></router-outlet>
 </div>

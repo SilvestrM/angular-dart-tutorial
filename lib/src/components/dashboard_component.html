@@ -1,0 +1,10 @@
+<section>
+  <h3 style="text-align: center; margin: 0 0 1.5rem;">Top Heroes</h3>
+  <div class="cols">
+    <a *ngFor="let hero of heroes" [routerLink]="heroUrl(hero.id)">
+      <div class="box col">
+        <h4>{{hero.name}}</h4>
+      </div>
+    </a>
+  </div>
+</section>

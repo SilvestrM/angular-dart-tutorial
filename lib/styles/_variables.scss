@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap");
 
 // text
 $font-primary: "Open Sans", sans-serif;
@@ -6,9 +6,21 @@ $font-primary: "Open Sans", sans-serif;
 // colors
 
 $color-flavour: #607d8b;
+
+$color-background-bluegray: #92a6ad;
+$color-background-darkblue: $color-flavour;
+$color-background-light: lighten(#92a6ad, 30);
 $color-whiteish: #eee;
+
 $color-text-dark: #2c3d44;
+$color-text-gray: #737f85;
+$color-text-white: white;
+
+$color-border-gray: lighten($color-text-gray, 30);
 
 // borders
 
 $border-radius: 4px;
+
+// animations
+$trans-speed: 86ms;
