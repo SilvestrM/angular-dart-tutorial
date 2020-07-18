@@ -1,0 +1,42 @@
+@import "../../styles/variables.scss";
+
+.search-result-box {
+    .search-result {
+        border-bottom: 1px solid $color-border-gray;
+        border-left: 1px solid $color-border-gray;
+        border-right: 1px solid $color-border-gray;
+
+        height: 20px;
+        padding: 5px;
+        background-color: white;
+        cursor: pointer;
+        transition: all $trans-speed;
+        &:hover {
+            background-color: $color-background-light;
+            transition: all $trans-speed;
+        }
+        &:first-child {
+            border-radius: $border-radius $border-radius 0 0;
+        }
+        &:last-child {
+            border-radius: 0 0 $border-radius $border-radius;
+        }
+    }
+}
+
+input {
+    &#search-box {
+        margin-left: 1rem;
+        width: 30rem;
+        height: 2rem;
+    }
+}
+
+#search-component {
+    margin-top: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

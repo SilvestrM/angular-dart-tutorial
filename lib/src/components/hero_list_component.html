@@ -1,5 +1,18 @@
 <section>
   <h2>Heroes</h2>
+  <div style="margin-bottom: 2rem;" class="control">
+    <div class="input-field">
+      <label>Hero name:</label>
+      <div class="control">
+        <input #heroName /><button
+          class="button light"
+          (click)="add(heroName.value); heroName.value=''"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="grid">
     <ul class="heroes">
       <li
@@ -8,7 +21,14 @@
         (click)="onSelect(hero)"
       >
         <span class="badge">{{hero.id}}</span>
-        {{hero.name}}
+        <span>{{hero.name}}</span>
+        <button
+          class="button inline"
+          style="font-size: 1.1em;"
+          (click)="delete(hero); $event.stopPropagation()"
+        >
+          x
+        </button>
       </li>
     </ul>
     <div *ngIf="selected != null">
