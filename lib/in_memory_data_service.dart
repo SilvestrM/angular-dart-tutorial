@@ -9,16 +9,16 @@ import 'src/model/hero.dart';
 
 class InMemoryDataService extends MockClient {
   static final _initialHeroes = [
-    {'id': 11, 'name': 'Mr. Nice'},
-    {'id': 12, 'name': 'Narco'},
-    {'id': 13, 'name': 'Bombasto'},
-    {'id': 14, 'name': 'Celeritas'},
-    {'id': 15, 'name': 'Magneta'},
-    {'id': 16, 'name': 'RubberMan'},
-    {'id': 17, 'name': 'Dynama'},
-    {'id': 18, 'name': 'Dr IQ'},
-    {'id': 19, 'name': 'Magma'},
-    {'id': 20, 'name': 'Tornado'}
+    {'id': 11, 'name': 'Mr. Nice', 'top': true},
+    {'id': 12, 'name': 'Narco', 'top': true},
+    {'id': 13, 'name': 'Bombasto', 'top': true},
+    {'id': 14, 'name': 'Celeritas', 'top': false},
+    {'id': 15, 'name': 'Magneta', 'top': false},
+    {'id': 16, 'name': 'RubberMan', 'top': false},
+    {'id': 17, 'name': 'Dynama', 'top': false},
+    {'id': 18, 'name': 'Dr IQ', 'top': false},
+    {'id': 19, 'name': 'Magma', 'top': false},
+    {'id': 20, 'name': 'Tornado', 'top': false}
   ];
   static List<Hero> _heroesDb;
   static int _nextId;
@@ -39,7 +39,8 @@ class InMemoryDataService extends MockClient {
         break;
       case 'POST':
         var name = json.decode(request.body)['name'];
-        var newHero = Hero(_nextId++, name);
+        var top = json.decode(request.body)['top'];
+        var newHero = Hero(_nextId++, name, top);
         _heroesDb.add(newHero);
         data = newHero;
         break;
@@ -47,6 +48,7 @@ class InMemoryDataService extends MockClient {
         var heroChanges = Hero.fromJson(json.decode(request.body));
         var targetHero = _heroesDb.firstWhere((h) => h.id == heroChanges.id);
         targetHero.name = heroChanges.name;
+        targetHero.top = heroChanges.top;
         data = targetHero;
         break;
       case 'DELETE':

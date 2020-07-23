@@ -24,6 +24,12 @@ class HeroService {
     }
   }
 
+  Future<List<Hero>> getTop() async {
+    List<Hero> heroes = await getAll();
+    List<Hero> topHeroes = heroes.where((h) => h.top == true).toList();
+    return topHeroes;
+  }
+
   Future<Hero> get(int id) async {
     try {
       final response = await _http.get('$_heroesUrl/$id');

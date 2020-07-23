@@ -1,4 +1,107 @@
+@import "../../styles/variables.scss";
+
 .grid {
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 2fr 3fr;
   gap: 1rem;
+}
+
+.heroes {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+  font-family: $font-primary;
+  width: 100%;
+  li {
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    background-color: #eee;
+    margin: 0.5em;
+    align-items: center;
+
+    height: 100%;
+    border-radius: $border-radius;
+    transition: all $trans-speed;
+
+    .content {
+      padding: 0.3em 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      > *:not(:first-child) {
+        margin-left: 0.5em;
+      }
+    }
+    &.selected .button.delete {
+      color: white;
+    }
+    &.selected:hover {
+      color: white;
+    }
+    &:hover {
+      color: #607d8b;
+      background-color: #eee;
+      left: 0.1em;
+      transition: all $trans-speed;
+    }
+    input {
+      height: 0.5em;
+      max-width: 7rem;
+    }
+    input[type="checkbox"] {
+      height: auto;
+    }
+  }
+  .text {
+    position: relative;
+    top: -3px;
+  }
+  .button.delete {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+  }
+  .badge {
+    display: inline-block;
+    font-size: small;
+    color: $color-text-white;
+    padding: 0.8em 0.7em 0.8em 0.7em;
+    background-color: #607d8b;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    height: 100%;
+    margin-right: 0.8em;
+    border-radius: 4px 0 0 4px;
+  }
+}
+
+.draggable {
+  cursor: pointer;
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.dnd-dragging {
+  opacity: 0.5;
+}
+
+.dnd-dragging,
+.dnd-drag-occurring {
+  cursor: default;
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.dnd-over {
+  border-width: medium;
+  border-color: #cddc39;
+  border-style: dashed;
+  background-color: white;
+  opacity: 1;
+}
+
+.dnd-over * {
+  display: none;
 }

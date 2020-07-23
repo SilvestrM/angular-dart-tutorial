@@ -1,0 +1,50 @@
+<!-- <li
+  [class.selected]="hero === selected"
+  class=".draggable"
+  (click)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
+>
+  <span class="badge">{{hero.id}}</span>
+  <div class="content">
+    <template [ngIf]="editMode !== i || hero !== selected">
+      <span>{{hero.name}}</span>
+
+      <button
+        class="button inline delete"
+        style="font-size: 1.1em;"
+        (click)="delete(hero); $event.stopPropagation()"
+      >
+        x
+      </button>
+    </template>
+    <template [ngIf]="hero === selected && editMode === i">
+      <input
+        (click)="$event.stopPropagation()"
+        [placeholder]="hero.name"
+        [value]="hero.name"
+        #newHeroName
+      />
+      <div>
+        <label for="top">Top</label>
+        {{topHeroes.length}}
+        <input
+          type="checkbox"
+          name="top"
+          ng-model="bool"
+          #isHeroTop
+          (click)="$event.stopPropagation()"
+          [checked]="hero.top"
+          [disabled]="topHeroes.length > 4 && hero.top !== true"
+        />
+      </div>
+      <button
+        class="button light"
+        style="padding: 0.25em 0.5rem;"
+        (click)="save(hero, newHeroName.value, isHeroTop.checked); $event.stopPropagation()"
+      >
+        save
+      </button>
+    </template>
+  </div>
+</li>
+ -->
+<p>pp</p>

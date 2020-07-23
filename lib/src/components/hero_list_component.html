@@ -15,20 +15,58 @@
   </div>
   <div class="grid">
     <ul class="heroes">
+      <!-- Mohl by byt samostatny komponent -->
+
       <li
+        *ngFor="let hero of heroes; let i=index "
         [class.selected]="hero === selected"
-        *ngFor="let hero of heroes"
-        (click)="onSelect(hero)"
+        class=".draggable"
+        (click)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
       >
-        <span class="badge">{{hero.id}}</span>
-        <span>{{hero.name}}</span>
-        <button
-          class="button inline"
-          style="font-size: 1.1em;"
-          (click)="delete(hero); $event.stopPropagation()"
+        <span>
+          <span class="badge">{{hero.id}}</span>
+          <div class="content">
+            <template [ngIf]="editMode !== i || hero !== selected">
+              <span>{{hero.name}}</span>
+
+              <button
+                class="button inline delete"
+                style="font-size: 1.1em;"
+                (click)="delete(hero); $event.stopPropagation()"
+              >
+                x
+              </button>
+            </template>
+            <template [ngIf]="hero === selected && editMode === i">
+              <input
+                (click)="$event.stopPropagation()"
+                [placeholder]="hero.name"
+                [value]="hero.name"
+                #newHeroName
+              />
+              <div>
+                <label for="top">Top</label>
+                {{topHeroes.length}}
+                <input
+                  type="checkbox"
+                  name="top"
+                  ng-model="bool"
+                  #isHeroTop
+                  (click)="$event.stopPropagation()"
+                  [checked]="hero.top"
+                  [disabled]="topHeroes.length > 4 && hero.top !== true"
+                />
+              </div>
+              <button
+                class="button light"
+                style="padding: 0.25em 0.5rem;"
+                (click)="save(hero, newHeroName.value, isHeroTop.checked); $event.stopPropagation()"
+              >
+                save
+              </button>
+            </template>
+          </div></span
         >
-          x
-        </button>
       </li>
     </ul>
     <div *ngIf="selected != null">
@@ -36,6 +74,24 @@
         <h2>
           {{selected.name | uppercase}} is my hero
         </h2>
+        <div class="div">
+          <div sm-draggable class="draggable">
+            <p>
+              dolor sit amet consectetur adipisicing elit. Velit, distinctio id?
+              Ea impedit itaque natus iste laboriosam! Facere esse veritatis,
+              perspiciatis laudantium ducimus reiciendis? Illum reprehenderit
+              nam voluptas praesentium deserunt.
+            </p>
+          </div>
+          <div sm-draggable class="draggable">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit,
+              distinctio id? Ea impedit itaque natus iste laboriosam! Facere
+              esse veritatis, perspiciatis laudantium ducimus reiciendis? Illum
+              reprehenderit nam voluptas praesentium deserunt.
+            </p>
+          </div>
+        </div>
         <button class="button light" (click)="gotoDetail()">
           View Details
         </button>

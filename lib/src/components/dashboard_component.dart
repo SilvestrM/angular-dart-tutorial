@@ -22,7 +22,7 @@ class DashboardComponent implements OnInit {
 
   @override
   void ngOnInit() async {
-    heroes = (await _heroService.getAll()).skip(1).take(4).toList();
+    heroes = (await _heroService.getTop()).take(4).toList();
   }
 
   String heroUrl(int id) => RoutePaths.hero.toUrl(parameters: {idParam: '$id'});
