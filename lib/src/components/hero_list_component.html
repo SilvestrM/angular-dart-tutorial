@@ -16,82 +16,64 @@
   <div class="grid">
     <ul class="heroes">
       <!-- Mohl by byt samostatny komponent -->
+      <!-- Moznost editu je mozna po kliknuti na oznaceny radek -->
+      <!-- Moznost pridavat nove top heroes, se znemozni, pokud jich je vice jak 4 -->
 
       <li
         *ngFor="let hero of heroes; let i=index "
         [class.selected]="hero === selected"
-        class=".draggable"
+        #draggableItem
         (click)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
       >
-        <span>
-          <span class="badge">{{hero.id}}</span>
-          <div class="content">
-            <template [ngIf]="editMode !== i || hero !== selected">
-              <span>{{hero.name}}</span>
+        <span class="badge">{{hero.id}}</span>
+        <div class="content">
+          <template [ngIf]="editMode !== i || hero !== selected">
+            <span>{{hero.name}}</span>
 
-              <button
-                class="button inline delete"
-                style="font-size: 1.1em;"
-                (click)="delete(hero); $event.stopPropagation()"
-              >
-                x
-              </button>
-            </template>
-            <template [ngIf]="hero === selected && editMode === i">
+            <button
+              class="button inline delete"
+              style="font-size: 1.1em;"
+              (click)="delete(hero); $event.stopPropagation()"
+            >
+              x
+            </button>
+          </template>
+          <template [ngIf]="hero === selected && editMode === i">
+            <input
+              (click)="$event.stopPropagation()"
+              [placeholder]="hero.name"
+              [value]="hero.name"
+              #newHeroName
+            />
+            <div>
+              <label for="top">Top</label>
               <input
+                type="checkbox"
+                name="top"
+                ng-model="bool"
+                #isHeroTop
                 (click)="$event.stopPropagation()"
-                [placeholder]="hero.name"
-                [value]="hero.name"
-                #newHeroName
+                [checked]="hero.top"
+                [disabled]="topHeroes.length >= 4 && hero.top !== true"
               />
-              <div>
-                <label for="top">Top</label>
-                {{topHeroes.length}}
-                <input
-                  type="checkbox"
-                  name="top"
-                  ng-model="bool"
-                  #isHeroTop
-                  (click)="$event.stopPropagation()"
-                  [checked]="hero.top"
-                  [disabled]="topHeroes.length > 4 && hero.top !== true"
-                />
-              </div>
-              <button
-                class="button light"
-                style="padding: 0.25em 0.5rem;"
-                (click)="save(hero, newHeroName.value, isHeroTop.checked); $event.stopPropagation()"
-              >
-                save
-              </button>
-            </template>
-          </div></span
-        >
+            </div>
+            <button
+              class="button light"
+              style="padding: 0.25em 0.5rem;"
+              (click)="save(hero, newHeroName.value, isHeroTop.checked); $event.stopPropagation()"
+            >
+              Save
+            </button>
+          </template>
+        </div>
       </li>
     </ul>
     <div *ngIf="selected != null">
       <div class="card">
-        <h2>
+        <h2 #draggableItem>
           {{selected.name | uppercase}} is my hero
         </h2>
-        <div class="div">
-          <div sm-draggable class="draggable">
-            <p>
-              dolor sit amet consectetur adipisicing elit. Velit, distinctio id?
-              Ea impedit itaque natus iste laboriosam! Facere esse veritatis,
-              perspiciatis laudantium ducimus reiciendis? Illum reprehenderit
-              nam voluptas praesentium deserunt.
-            </p>
-          </div>
-          <div sm-draggable class="draggable">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit,
-              distinctio id? Ea impedit itaque natus iste laboriosam! Facere
-              esse veritatis, perspiciatis laudantium ducimus reiciendis? Illum
-              reprehenderit nam voluptas praesentium deserunt.
-            </p>
-          </div>
-        </div>
+
         <button class="button light" (click)="gotoDetail()">
           View Details
         </button>
