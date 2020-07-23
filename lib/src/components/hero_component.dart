@@ -15,6 +15,7 @@ import '../router/route_paths.dart';
 )
 class HeroComponent implements OnActivate {
   Hero hero;
+  List<Hero> topHeroes;
 
   final HeroService _heroService;
   final Location _location;
@@ -24,6 +25,7 @@ class HeroComponent implements OnActivate {
   void onActivate(_, RouterState current) async {
     final id = getId(current.parameters);
     if (id != null) hero = await _heroService.get(id);
+    topHeroes = await _heroService.getTop();
   }
 
   int getId(Map<String, String> parameters) {

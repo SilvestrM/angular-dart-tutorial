@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 
 .grid {
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: auto 2fr;
   gap: 1rem;
 }
 
@@ -9,12 +9,13 @@
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
   font-family: $font-primary;
-  width: 100%;
+  width: auto;
   li {
     cursor: pointer;
     display: flex;
+    width: 20rem;
+    flex-grow: 1;
     position: relative;
     background-color: #eee;
     margin: 0.5em;
@@ -45,7 +46,7 @@
     }
     input {
       height: 0.5em;
-      max-width: 7rem;
+      max-width: 6rem;
     }
     input[type="checkbox"] {
       height: auto;
@@ -55,10 +56,15 @@
     position: relative;
     top: -3px;
   }
-  .button.delete {
-    position: absolute;
-    right: 5%;
-    top: 20%;
+  .button {
+    &.save {
+      position: absolute;
+      right: 5%;
+    }
+    &.delete {
+      position: absolute;
+      right: 5%;
+    }
   }
   .badge {
     display: inline-block;
@@ -76,13 +82,16 @@
 }
 
 .draggable {
+  width: 100%;
   cursor: pointer;
   cursor: grab;
   cursor: -webkit-grab;
 }
 
 .dnd-dragging {
-  opacity: 0.5;
+  opacity: 0.3;
+  transition: all $trans-speed;
+  cursor: grab;
 }
 
 .dnd-dragging,
@@ -93,13 +102,16 @@
 }
 
 .dnd-over {
-  border-width: medium;
-  border-color: #cddc39;
+  transition: all $trans-speed;
+  border-width: 2px;
+  border-color: #607d8b;
   border-style: dashed;
-  background-color: white;
-  opacity: 1;
-}
-
-.dnd-over * {
-  display: none;
+  color: $color-text-white;
+  opacity: 0.6;
+  transform: scaleX(1.05);
+  .badge,
+  .content,
+  * {
+    visibility: hidden;
+  }
 }

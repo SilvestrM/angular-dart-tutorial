@@ -21,6 +21,24 @@
             <input [(ngModel)]="hero.name" placeholder="name" />
           </td>
         </tr>
+        <tr>
+          <th>
+            <label>Show as top: </label>
+          </th>
+          <td style="display: flex; align-items: center;">
+            <input
+              [(ngModel)]="hero.top"
+              type="checkbox"
+              [disabled]="topHeroes?.length >= 4 && hero.top !== true"
+            />
+            <p
+              style="font-size: 0.7em; margin-left: 0.5rem; color: #d15959;"
+              *ngIf="topHeroes?.length >= 4 && hero.top !== true"
+            >
+              Maximum top heroes exceeded!
+            </p>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

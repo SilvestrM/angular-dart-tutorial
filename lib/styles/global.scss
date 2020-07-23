@@ -168,6 +168,12 @@ nav {
   }
 }
 
+input[type="checkbox"] {
+  &:checked {
+    background-color: $color-flavour;
+  }
+}
+
 .table {
   th,
   td {

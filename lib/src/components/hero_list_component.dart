@@ -10,23 +10,19 @@ import '../model/hero.dart';
 import '../router/route_paths.dart';
 import '../services/hero_service.dart';
 
+import '../directives/draggable.dart';
+
 @Component(
   selector: 'hero-list',
   templateUrl: 'hero_list_component.html',
-  directives: [
-    coreDirectives,
-    formDirectives,
-  ],
+  directives: [coreDirectives, formDirectives, DraggableDirective],
   styleUrls: ['../../styles/global.css', 'hero_list_component.css'],
   providers: [ClassProvider(HeroService)],
   pipes: [commonPipes],
 )
-class HeroListComponent implements OnInit, AfterViewInit {
+class HeroListComponent implements OnInit {
   Hero selected;
   int editMode = null;
-
-  @ViewChildren('draggableItem')
-  List<Element> draggables;
 
   List<Hero> heroes;
   List<Hero> topHeroes;
@@ -44,33 +40,13 @@ class HeroListComponent implements OnInit, AfterViewInit {
     _getHeroes();
   }
 
-  @override
-  void ngAfterViewInit() {
-    print(draggables);
-    Draggable draggable =
-        Draggable(draggables, avatarHandler: AvatarHandler.original());
-    Dropzone dropzone = Dropzone(draggables);
-    draggable.onDragStart.listen((event) {
-      print('start');
-    });
-    dropzone.onDrop.listen((DropzoneEvent event) {
-      swap(event.draggableElement, event.dropzoneElement);
-    });
-  }
-
-  void swap(Element elm1, Element elm2) {
-    print('test');
-    var parent1 = elm1.parent;
-    var next1 = elm1.nextElementSibling;
-    var parent2 = elm2.parent;
-    var next2 = elm2.nextElementSibling;
-
-    parent1.insertBefore(elm2, next1);
-    parent2.insertBefore(elm1, next2);
-  }
-
   void onSelect(Hero hero) {
     selected = hero;
+    editMode = null;
+  }
+
+  void onClickout() {
+    selected = null;
     editMode = null;
   }
 

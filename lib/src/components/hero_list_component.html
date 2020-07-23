@@ -18,55 +18,59 @@
       <!-- Mohl by byt samostatny komponent -->
       <!-- Moznost editu je mozna po kliknuti na oznaceny radek -->
       <!-- Moznost pridavat nove top heroes, se znemozni, pokud jich je vice jak 4 -->
+      <!-- Potvrdit mozno kliknutim na save ci zmacknutim entru -->
 
-      <li
-        *ngFor="let hero of heroes; let i=index "
-        [class.selected]="hero === selected"
-        #draggableItem
-        (click)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
-      >
-        <span class="badge">{{hero.id}}</span>
-        <div class="content">
-          <template [ngIf]="editMode !== i || hero !== selected">
-            <span>{{hero.name}}</span>
+      <template ngFor let-hero [ngForOf]="heroes" let-i="index">
+        <li
+          sm-drag
+          [class.selected]="hero === selected"
+          (keyup)="$event.key === 'Escape' ? onClickout() : ''"
+          (click)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
+        >
+          <span class="badge">{{hero.id}}</span>
+          <div class="content">
+            <template [ngIf]="editMode !== i || hero !== selected">
+              <span>{{hero.name}}</span>
 
-            <button
-              class="button inline delete"
-              style="font-size: 1.1em;"
-              (click)="delete(hero); $event.stopPropagation()"
-            >
-              x
-            </button>
-          </template>
-          <template [ngIf]="hero === selected && editMode === i">
-            <input
-              (click)="$event.stopPropagation()"
-              [placeholder]="hero.name"
-              [value]="hero.name"
-              #newHeroName
-            />
-            <div>
-              <label for="top">Top</label>
+              <button
+                class="button inline delete"
+                style="font-size: 1.1em;"
+                (click)="delete(hero); $event.stopPropagation()"
+              >
+                x
+              </button>
+            </template>
+            <template [ngIf]="hero === selected && editMode === i">
               <input
-                type="checkbox"
-                name="top"
-                ng-model="bool"
-                #isHeroTop
                 (click)="$event.stopPropagation()"
-                [checked]="hero.top"
-                [disabled]="topHeroes.length >= 4 && hero.top !== true"
+                (keyup)="$event.key === 'Enter' ? save(hero, newHeroName.value, isHeroTop.checked) : ''"
+                [placeholder]="hero.name"
+                [value]="hero.name"
+                #newHeroName
               />
-            </div>
-            <button
-              class="button light"
-              style="padding: 0.25em 0.5rem;"
-              (click)="save(hero, newHeroName.value, isHeroTop.checked); $event.stopPropagation()"
-            >
-              Save
-            </button>
-          </template>
-        </div>
-      </li>
+              <div>
+                <label for="top">Top</label>
+                <input
+                  type="checkbox"
+                  name="top"
+                  ng-model="bool"
+                  #isHeroTop
+                  (click)="$event.stopPropagation()"
+                  [checked]="hero.top"
+                  [disabled]="topHeroes.length >= 4 && hero.top !== true"
+                />
+              </div>
+              <button
+                class="button light save"
+                style="padding: 0.25em 0.5rem;"
+                (click)="save(hero, newHeroName.value, isHeroTop.checked); $event.stopPropagation()"
+              >
+                Save
+              </button>
+            </template>
+          </div>
+        </li></template
+      >
     </ul>
     <div *ngIf="selected != null">
       <div class="card">
