@@ -20,7 +20,6 @@ class OnTouchHoldDirective {
   OnTouchHoldDirective(this.el) {
 
     // Disables select and double tap zoom on the target element
-    el.style.touchAction = 'manipulation';
     el.style.userSelect = 'none';
   }
 
@@ -35,13 +34,13 @@ class OnTouchHoldDirective {
         timer = Timer(Duration(milliseconds: 500), () 
         {
           // Disables select and double tap zoom on the target element
-          el.style.touchAction = 'none';
           _onTouchHoldController.add(e);
+          el.style.touchAction = 'none';
           el.style.transform = 'scale(1.1,1.1)';
           timer = null;
         });
       } 
-      //e.preventDefault();
+      e.preventDefault();
     }
   }
 

@@ -26,7 +26,7 @@ class DraggableDirective implements OnInit {
   }
 
   @HostListener('onTouchHold') 
-  void activateDraggable(e) {
+  void activateDraggable(PointerEvent e) {
     dragEnabled = true;
 
     draggable.onDragEnd.listen((DraggableEvent event) {
@@ -37,7 +37,7 @@ class DraggableDirective implements OnInit {
 
   @override
   void ngOnInit() {
-    dragEnabled ??= true;
+    dragEnabled ??= false;
     this.draggable = Draggable(
       el,
       avatarHandler: AvatarHandler.clone(),
@@ -47,22 +47,21 @@ class DraggableDirective implements OnInit {
     this.dropzone = Dropzone(el);
  
     dropzone.onDragOver.listen((DropzoneEvent event) {
-      if(dragEnabled) {
         swap(event.draggableElement, event.dropzoneElement);
-      }
     });
 
     draggable.onDrag.listen((DraggableEvent event) {
        if(!dragEnabled) {
          draggable.abort();
-         print("aborted");
        }    
     });
 
     
-    // dropzone.onDrop.listen((DropzoneEvent event) {
-    //   swap(event.draggableElement, event.dropzoneElement);
-    // });
+    dropzone.onDrop.listen((DropzoneEvent event) {
+       if(dragEnabled) {
+        swap(event.draggableElement, event.dropzoneElement);
+      }
+    });
   }
 
   void swap(Element elm1, Element elm2) {
