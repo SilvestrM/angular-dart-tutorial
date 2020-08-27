@@ -1,4 +1,6 @@
 import 'package:angular/angular.dart';
+import 'package:angular_app/src/directives/touch.dart';
+import 'package:angular_app/src/directives/touch_hold.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 
@@ -12,13 +14,14 @@ import '../directives/draggable.dart';
 @Component(
   selector: 'hero-list',
   templateUrl: 'hero_list_component.html',
-  directives: [coreDirectives, formDirectives, DraggableDirective],
+  directives: [coreDirectives, formDirectives, DraggableDirective, OnDoubleTapDirective, OnTouchHoldDirective],
   styleUrls: ['../../styles/global.css', 'hero_list_component.css'],
   providers: [ClassProvider(HeroService)],
   pipes: [commonPipes],
 )
 class HeroListComponent implements OnInit {
   Hero selected;
+  bool dragEnabled;
   int editMode = null;
 
   List<Hero> heroes;

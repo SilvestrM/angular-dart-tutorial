@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html';
 
 import 'package:dnd/dnd.dart';
@@ -8,20 +9,57 @@ class DraggableDirective implements OnInit {
   Draggable draggable;
   Dropzone dropzone;
   Element el;
-  DraggableDirective(this.el) {
+  bool dragEnabled;
+  String pointer;
+
+  DraggableDirective(this.el);
+
+  @HostListener('pointerover')
+  void checkDevice(PointerEvent e) {
+    pointer = e.pointerType;
+    if(pointer == "mouse") {
+      dragEnabled ??= true;
+    } else {
+      dragEnabled ??= false;
+    }
+    e.preventDefault();
+  }
+
+  @HostListener('onTouchHold') 
+  void activateDraggable(e) {
+    dragEnabled = true;
+
+    draggable.onDragEnd.listen((DraggableEvent event) {
+      if(pointer != "mouse")
+        dragEnabled = false;
+    });
+  }
+
+  @override
+  void ngOnInit() {
+    dragEnabled ??= true;
     this.draggable = Draggable(
       el,
       avatarHandler: AvatarHandler.clone(),
       verticalOnly: true,
     );
+  
     this.dropzone = Dropzone(el);
-  }
-
-  @override
-  void ngOnInit() {
+ 
     dropzone.onDragOver.listen((DropzoneEvent event) {
-      swap(event.draggableElement, event.dropzoneElement);
+      if(dragEnabled) {
+        swap(event.draggableElement, event.dropzoneElement);
+      }
     });
+
+    draggable.onDrag.listen((DraggableEvent event) {
+       if(!dragEnabled) {
+         draggable.abort();
+         print("aborted");
+       }    
+    });
+
+    
     // dropzone.onDrop.listen((DropzoneEvent event) {
     //   swap(event.draggableElement, event.dropzoneElement);
     // });

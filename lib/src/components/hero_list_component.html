@@ -23,9 +23,12 @@
       <template ngFor let-hero [ngForOf]="heroes" let-i="index">
         <li
           sm-drag
+          (click)="hero !== selected ? onSelect(hero) : ''; $event.stopPropagation()"
+          onTouchHold
+          (onDoubleTap)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
           [class.selected]="hero === selected"
           (keyup)="$event.key === 'Escape' ? onClickout() : ''"
-          (click)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
+          
         >
           <span class="badge">{{hero.id}}</span>
           <div class="content">
