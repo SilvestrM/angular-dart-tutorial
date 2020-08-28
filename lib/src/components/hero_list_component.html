@@ -23,9 +23,9 @@
       <template ngFor let-hero [ngForOf]="heroes" let-i="index">
         <li
           sm-drag
-          (click)="hero !== selected ? onSelect(hero) : ''; $event.stopPropagation()"
+          (click)="hero !== selected ? onSelect(hero) : ''"
           onTouchHold
-          (onDoubleTap)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero); $event.stopPropagation()"
+          (onDoubleTap)="hero === selected ? editMode !== null ? editMode=null : editMode= i : onSelect(hero)"
           [class.selected]="hero === selected"
           (keyup)="$event.key === 'Escape' ? onClickout() : ''"
           
@@ -46,6 +46,7 @@
             <template [ngIf]="hero === selected && editMode === i">
               <input
                 (click)="$event.stopPropagation()"
+                (focus)="$event.stopPropagation()"
                 (keyup)="$event.key === 'Enter' ? save(hero, newHeroName.value, isHeroTop.checked) : ''"
                 [placeholder]="hero.name"
                 [value]="hero.name"

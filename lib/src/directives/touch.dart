@@ -17,30 +17,23 @@ class OnDoubleTapDirective {
   @Output()
   Stream<dynamic> get onDoubleTap => _onDoubleTapController.stream;
 
-  OnDoubleTapDirective(this.el) {
-
-    // Disables select and double tap zoom on the target element
-    el.style.touchAction = 'manipulation';
-    el.style.userSelect = 'none';
-  }
+  OnDoubleTapDirective(this.el);
 
   @HostListener('pointerdown')
   void onDoubleTapLis(e) {
-     print(e.toString()); 
-      if (timer == null) {
-
-        // Stes the timeframe for the next interaction
-        timer = Timer(Duration(milliseconds: 300), () {
-          timer = null;
-        });
-      } else {
-        timer?.cancel();
+    if (timer == null) {
+      // Stes the timeframe for the next interaction
+      timer = Timer(Duration(milliseconds: 300), () {
         timer = null;
-        _onDoubleTapController.add(e);
+      });
+    } else {
+      timer?.cancel();
+      timer = null;
+      _onDoubleTapController.add(e);
 
-        //el.style.transform = 'rotate(20deg)';
-      }
+      //el.style.transform = 'rotate(20deg)';
+    }
 
-      e.preventDefault();
+    //e.preventDefault();
   }
 }

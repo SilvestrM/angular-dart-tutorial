@@ -17,7 +17,7 @@ class DraggableDirective implements OnInit {
   @HostListener('pointerover')
   void checkDevice(PointerEvent e) {
     pointer = e.pointerType;
-    if(pointer == "mouse") {
+    if (pointer == "mouse") {
       dragEnabled ??= true;
     } else {
       dragEnabled ??= false;
@@ -25,42 +25,41 @@ class DraggableDirective implements OnInit {
     e.preventDefault();
   }
 
-  @HostListener('onTouchHold') 
+  @HostListener('onTouchHold')
   void activateDraggable(PointerEvent e) {
     dragEnabled = true;
 
     draggable.onDragEnd.listen((DraggableEvent event) {
-      if(pointer != "mouse")
-        dragEnabled = false;
+      if (pointer != "mouse") dragEnabled = false;
     });
   }
 
   @override
   void ngOnInit() {
-    dragEnabled ??= false;
+    //dragEnabled ??= true;
+    el.draggable = this.dragEnabled;
     this.draggable = Draggable(
       el,
       avatarHandler: AvatarHandler.clone(),
       verticalOnly: true,
     );
-  
+
     this.dropzone = Dropzone(el);
- 
+
     dropzone.onDragOver.listen((DropzoneEvent event) {
-        swap(event.draggableElement, event.dropzoneElement);
+      swap(event.draggableElement, event.dropzoneElement);
     });
 
     draggable.onDrag.listen((DraggableEvent event) {
-       if(!dragEnabled) {
-         draggable.abort();
-       }    
+      if (!dragEnabled) {
+        draggable.abort();
+      }
     });
 
-    
     dropzone.onDrop.listen((DropzoneEvent event) {
-       if(dragEnabled) {
-        swap(event.draggableElement, event.dropzoneElement);
-      }
+      //  if(dragEnabled) {
+      //   swap(event.draggableElement, event.dropzoneElement);
+      // }
     });
   }
 
