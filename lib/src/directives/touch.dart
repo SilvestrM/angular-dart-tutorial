@@ -30,8 +30,6 @@ class OnDoubleTapDirective {
       timer?.cancel();
       timer = null;
       _onDoubleTapController.add(e);
-
-      //el.style.transform = 'rotate(20deg)';
     }
 
     //e.preventDefault();

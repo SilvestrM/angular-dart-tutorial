@@ -24,19 +24,21 @@ class OnTouchHoldDirective implements OnInit {
 
   @HostListener('pointerdown')
   void onTouchHoldLis(PointerEvent e) {
-    print(siblings?.length);
     if (e.pointerType == "touch") {
       if (timer == null) {
         // Stes the timeframe for the next interaction
         timer = Timer(Duration(milliseconds: 500), () {
           // Disables select and double tap zoom on the target element
           _onTouchHoldController.add(e);
-          el.style.touchAction = 'none';
+          //el.style.touchAction = 'none';
           el.style.transform = 'scale(1.1,1.1)';
+          el.style.transform = 'rotate(30deg)';
           timer = null;
         });
       }
       e.preventDefault();
+    } else {
+      cancelTimer();
     }
   }
 
@@ -61,9 +63,6 @@ class OnTouchHoldDirective implements OnInit {
   }
 
   cancelTimer() {
-    Timer(Duration(milliseconds: 300), () {
-      //el.style.touchAction = 'manipulation';
-    });
     el.style.transform = 'scale(1,1)';
     timer?.cancel();
     timer = null;

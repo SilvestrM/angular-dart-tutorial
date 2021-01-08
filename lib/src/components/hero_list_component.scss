@@ -35,10 +35,10 @@
     &.selected .button.delete {
       color: white;
     }
-    &.selected:hover {
+    &.selected:hover, &.selected:hover {
       color: white;
     }
-    &:hover {
+    &:hover, &:active {
       color: #607d8b;
       background-color: #eee;
       left: 0.1em;

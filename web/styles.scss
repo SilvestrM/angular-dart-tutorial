@@ -357,4 +357,5 @@ template {
 body {
     font-family: $font-primary;
     color: $color-text-dark;
+    -webkit-user-select: none;
 }

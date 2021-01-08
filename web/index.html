@@ -9,6 +9,14 @@
         var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/)
         document.write('<base href="' + (m ? m[0] : "/") + '" />')
       })()
+
+      if (typeof window.MemoryInfo == "undefined") {
+        if (typeof window.performance.memory != "undefined") {
+          window.MemoryInfo = function () {};
+          window.MemoryInfo.prototype = window.performance.memory.__proto__;
+        }
+      }
+      window.sessionStorage.setItem('ENV','dev');
     </script>
 
     <title>Hello Angular</title>

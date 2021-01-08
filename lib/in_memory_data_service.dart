@@ -18,6 +18,16 @@ class InMemoryDataService extends MockClient {
     {'id': 17, 'name': 'Dynama', 'top': false},
     {'id': 18, 'name': 'Dr IQ', 'top': false},
     {'id': 19, 'name': 'Magma', 'top': false},
+    {'id': 20, 'name': 'Tornado', 'top': false},
+    {'id': 21, 'name': 'RubberMan', 'top': false},
+    {'id': 17, 'name': 'Dynama', 'top': false},
+    {'id': 18, 'name': 'Dr IQ', 'top': false},
+    {'id': 19, 'name': 'Magma', 'top': false},
+    {'id': 20, 'name': 'Tornado', 'top': false},
+    {'id': 16, 'name': 'RubberMan', 'top': false},
+    {'id': 17, 'name': 'Dynama', 'top': false},
+    {'id': 18, 'name': 'Dr IQ', 'top': false},
+    {'id': 19, 'name': 'Magma', 'top': false},
     {'id': 20, 'name': 'Tornado', 'top': false}
   ];
   static List<Hero> _heroesDb;
