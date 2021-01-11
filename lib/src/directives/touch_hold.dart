@@ -32,7 +32,6 @@ class OnTouchHoldDirective implements OnInit {
           _onTouchHoldController.add(e);
           //el.style.touchAction = 'none';
           el.style.transform = 'scale(1.1,1.1)';
-          el.style.transform = 'rotate(30deg)';
           timer = null;
         });
       }
